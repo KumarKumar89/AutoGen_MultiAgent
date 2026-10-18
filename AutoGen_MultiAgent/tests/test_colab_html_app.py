@@ -6,6 +6,7 @@ from colab_html_app import (
     _catalog_entries,
     _parse_course_recommendations,
     render_report_html,
+    _preview_fragment,
     run_analysis,
 )
 
@@ -50,3 +51,11 @@ def test_run_analysis_requires_cv_before_attempting_model_load():
         assert "CV/profile text" in str(exc)
     else:
         raise AssertionError("Missing CV should be rejected before model loading")
+
+
+def test_preview_fragment_keeps_styles_and_body_without_nested_document_tags():
+    document = "<html><head><style>.card{color:red}</style></head><body><main>Report</main></body></html>"
+    fragment = _preview_fragment(document)
+    assert "<style>.card{color:red}</style>" in fragment
+    assert "<main>Report</main>" in fragment
+    assert "<html>" not in fragment and "<head>" not in fragment and "<body>" not in fragment

@@ -71,7 +71,9 @@ def _catalog_entries(catalogue: str, limit: int = 60) -> list[str]:
         line = raw.strip()
         line = re.sub(r"^\s*#+\s*", "", line)
         line = re.sub(r"^\s*(?:[-*•]\s*|\d+[.)]\s*)", "", line).strip()
-        if not line or len(line) < 3 or (line.endswith(":") and len(line) < 80):
+        heading = line.casefold().rstrip(":").strip()
+        if (not line or len(line) < 3 or (line.endswith(":") and len(line) < 80)
+                or heading in {"course", "courses", "course catalog", "course catalogue", "catalog", "catalogue", "available courses"}):
             continue
         line = line[:400]
         key = line.casefold()

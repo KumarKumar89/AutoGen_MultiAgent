@@ -1,34 +1,19 @@
-# Autogen Multi-Agent Ecosystem: Profile Analysis with Free LLMs
+# AutoGen Multi-Agent Ecosystem
 
-<img title="Logo" alt="Alt text" src="/imgs/cover_page.png">
+This folder contains the original AutoGen tutorial artifacts and the Colab-ready HTML app.
 
+## Interactive HTML app (recommended)
 
-## Description
-This repository demonstrates how to build and execute a multi-agent system using **Autogen** and free LLMs with **Groq**. It serves as a step-by-step tutorial to help users understand the basics of multi-agent systems, tool integration, and hybrid agent selection methods.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KumarKumar89/AutoGen_MultiAgent/blob/feature/colab-html-open-llm/AutoGen_MultiAgent/AutoGen_MultiAgent_Colab_HTML.ipynb)
 
----
+The notebook starts a Gradio HTML form backed by open-weight Hugging Face models. It accepts pasted/uploaded CV and course catalogue inputs, displays role-based agent results, and creates a downloadable standalone HTML report. It requires no paid API key.
 
-## Features
-- **Multi-Agent Setup**: Includes agents for analyzing CVs, extracting skills, recommending courses, and verifying task completion.
-- **Hybrid Agent Selection**: Implements a custom method for dynamically selecting the next agent based on the task flow.
-- **Tool Integration**: Demonstrates how to use external tools for processing tasks.
-- **Custom Configuration**: Allows experimentation with LLM configurations like `llama31` and `gemma2` for optimized performance.
+Select a GPU runtime if one is available. The first run downloads the model. The share link is public while active: only use redacted/demo CVs, never sensitive personal information.
 
----
+## Files
 
-## Requirements
-- Python used version: **3.10.15**
-- Dependencies listed in `requirements.txt`
-- API Key for **Groq**
-- `.env` file with the following variable:
-  ```plaintext
-  GROQ_API_KEY=<your_api_key>
-    ```
-
-```python
-pip install -r requirements.txt
-```
-
-
-IMPORTANT INSTRUCTION:-  If some file is not working in the python environment try to use google colab
-
+- colab_html_app.py — Gradio UI, open-weight LLM inference, HTML preview/download.
+- AutoGen_MultiAgent_Colab_HTML.ipynb — Google Colab launcher notebook.
+- requirements-colab.txt — dependencies for the HTML app.
+- run_live_multi_agent.py — existing command-line demo runner.
+- fixed_multi_agent_ecosystem.py — original AutoGen/Groq workflow.

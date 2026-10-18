@@ -336,13 +336,23 @@ def run_analysis(candidate_name: str, target_role: str, cv_text: str,
     return report_html, report_path, f"Completed using {model_id} on {device.upper()}. Review the report before relying on it."
 
 
+def _preview_fragment(document: str) -> str:
+    """Convert the standalone document to a fragment suitable for Gradio's HTML component."""
+    style = re.search(r"<style[^>]*>([\s\S]*?)</style>", document, flags=re.IGNORECASE)
+    body = re.search(r"<body[^>]*>([\s\S]*?)</body>", document, flags=re.IGNORECASE)
+    if not body:
+        return document
+    style_block = f"<style>{style.group(1)}</style>" if style else ""
+    return style_block + body.group(1)
+
+
 def _process_form(candidate_name, target_role, model_id, cv_upload, cv_text,
                   catalogue_upload, catalogue_text):
     try:
         cv = _read_uploaded_text(cv_upload) if cv_upload else (cv_text or "")
         catalogue = _read_uploaded_text(catalogue_upload) if catalogue_upload else (catalogue_text or "")
         report, file_path, status = run_analysis(candidate_name, target_role, cv, catalogue, model_id)
-        return report, file_path, status
+        return _preview_fragment(report), file_path, status
     except Exception as exc:
         message = html.escape(str(exc))
         error_html = (

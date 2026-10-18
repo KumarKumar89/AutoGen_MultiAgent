@@ -1,0 +1,32 @@
+name: Colab HTML app checks
+
+on:
+  push:
+    branches: [main, "feature/colab-html-open-llm"]
+    paths:
+      - "AutoGen_MultiAgent/colab_html_app.py"
+      - "AutoGen_MultiAgent/tests/**"
+      - ".github/workflows/colab-app-tests.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "AutoGen_MultiAgent/colab_html_app.py"
+      - "AutoGen_MultiAgent/tests/**"
+      - ".github/workflows/colab-app-tests.yml"
+  workflow_dispatch:
+
+jobs:
+  lightweight-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install test dependency
+        run: python -m pip install --upgrade pytest
+      - name: Compile source
+        run: python -m compileall -q AutoGen_MultiAgent/colab_html_app.py
+      - name: Run offline unit tests
+        run: python -m pytest -q AutoGen_MultiAgent/tests/test_colab_html_app.py

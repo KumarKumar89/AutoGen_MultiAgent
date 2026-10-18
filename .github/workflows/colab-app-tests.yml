@@ -30,3 +30,5 @@ jobs:
         run: python -m compileall -q AutoGen_MultiAgent/colab_html_app.py
       - name: Run offline unit tests
         run: python -m pytest -q AutoGen_MultiAgent/tests/test_colab_html_app.py
+      - name: Validate notebook JSON
+        run: python -c "import json; json.load(open('AutoGen_MultiAgent/AutoGen_MultiAgent_Colab_HTML.ipynb', encoding='utf-8'))"

@@ -12,7 +12,7 @@ This repository demonstrates how to build and execute a multi-agent system using
 - **Multi-Agent Setup**: Includes agents for analyzing CVs, extracting skills, recommending courses, and verifying task completion.
 - **Hybrid Agent Selection**: Implements a custom method for dynamically selecting the next agent based on the task flow.
 - **Tool Integration**: Demonstrates how to use external tools for processing tasks.
-- **Custom Configuration**: Allows experimentation with LLM configurations like `llama31` and `gemma2` for optimized performance.
+- **Custom Configuration**: Allows experimentation with LLM configurations like `llama31` and 'groq' / `gemma2` for optimized performance.
 
 ---
 

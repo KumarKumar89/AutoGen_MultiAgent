@@ -32,3 +32,29 @@ pip install -r requirements.txt
 
 IMPORTANT INSTRUCTION:-  If some file is not working in the python environment try to use google colab
 
+---
+
+## Web service (2026) — remote interaction
+
+The repository is now exposed remotely via a FastAPI service with an interactive HTML console.
+
+```bash
+# from the repo root (auto-checks deps & extracts data assets):
+python ../run.py                # → http://localhost:8000  (HTML console + KPI panel)
+python ../run.py --cli          # one-shot pipeline in terminal
+python ../run.py --test         # forensic test-suite (22 tests)
+
+# or directly:
+uvicorn app:app --host 0.0.0.0 --port 8000
+```
+
+| Endpoint | Purpose |
+|--------|---------|
+| `GET /` | Interactive HTML chat console (runs the multi-agent pipeline remotely) |
+| `GET /health` | Liveness, uptime, backend (Ollama) probe, data-file check |
+| `GET /api/agents` | Agent roster + speaker-selection policy |
+| `GET /api/data` | Raw grounding corpus (`cv.txt`, `courses.txt`) |
+| `POST /api/run` | Run pipeline: `{query, max_turns, use_ollama}` → history + final |
+| `GET /docs` | Swagger UI (OpenAPI) |
+
+See the root [README.md](../README.md) for the SLD architecture, data flow, code logic and KPIs.
